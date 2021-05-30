@@ -1,9 +1,8 @@
-package com.example.workshop1;
+    package com.example.workshop1;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class BoxFragment extends Fragment implements View.OnTouchListener {
-    //    View view2,view3,view4,view5,vie6;
+    private static final String TAG ="box" ;
     float dX1, dX2, dX3, dX4, dX5;
     float dY1, dY2, dY3, dY4, dY5;
     int lastAction;
@@ -44,27 +43,46 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
         sharedPrefenceHelper = new SharedPrefenceHelper(this.getContext());
 
 
-//        SharedPreferences preferences1 = this.getActivity().getSharedPreferences("pref1", Context.MODE_PRIVATE);
         float x1 = sharedPrefenceHelper.getViewx1();
         float y1 = sharedPrefenceHelper.getViewy1();
 
-//        SharedPreferences preferences2 = this.getActivity().getSharedPreferences("pref2", Context.MODE_PRIVATE);
+        Log.d(TAG, "onTouch: 1st view coordinates sharedprefs" + x1 + " " + y1);
+
+
         float x2 = sharedPrefenceHelper.getViewx2();
         float y2 = sharedPrefenceHelper.getViewy2();
 
-//        SharedPreferences preferences3 = this.getActivity().getSharedPreferences("pref3", Context.MODE_PRIVATE);
+        Log.d(TAG, "onTouch: 2st view coordinates sharedprefs" + x2  + " " +y2);
+
+
         float x3 = sharedPrefenceHelper.getViewx3();
         float y3 = sharedPrefenceHelper.getViewy3();
 
-//        SharedPreferences preferences4 = this.getActivity().getSharedPreferences("pref4", Context.MODE_PRIVATE);
-        float x4 = sharedPrefenceHelper.getViewx1();
-        float y4 = sharedPrefenceHelper.getViewx1();
-
-//        SharedPreferences preferences5 = this.getActivity().getSharedPreferences("pref5", Context.MODE_PRIVATE);
-        float x5 =sharedPrefenceHelper.getViewx1();
-        float y5 = sharedPrefenceHelper.getViewx1();
+        Log.d(TAG, "onTouch: 3st view coordinates sharedprefs" + x3+ " " +y3);
 
 
+        float x4 = sharedPrefenceHelper.getViewx4();
+        float y4 = sharedPrefenceHelper.getViewy4();
+
+        Log.d(TAG, "onTouch: 4st view coordinates sharedprefs" + x4+ " " +y4);
+
+
+        float x5 =sharedPrefenceHelper.getViewx5();
+        float y5 = sharedPrefenceHelper.getViewy5();
+
+        Log.d(TAG, "onTouch: 5st view coordinates sharedprefs" + x5+ " " +y5);
+
+
+//        dragView1.setX(100);
+//        dragView1.setY(100);
+//        dragView2.setX(100);
+//        dragView2.setY(100);
+//        dragView3.setX(100);
+//        dragView3.setY(100);
+//        dragView4.setX(100);
+//        dragView4.setY(100);
+//        dragView5.setX(100);
+//        dragView5.setY(100);
 
         dragView1.setX(x1);
         dragView1.setY(y1);
@@ -74,14 +92,14 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
         dragView3.setY(y3);
         dragView4.setX(x4);
         dragView4.setY(y4);
-        dragView5.setX(x5);
-        dragView5.setY(y5);
+        dragView5.setX(x5/2);
+        dragView5.setY(y5/2);
 
         dragView1.setOnTouchListener(this);
-        dragView2.setOnTouchListener(this::onTouch2);
-        dragView3.setOnTouchListener(this::onTouch3);
-        dragView4.setOnTouchListener(this::onTouch4);
-        dragView5.setOnTouchListener(this::onTouch5);
+        dragView2.setOnTouchListener(this ::onTouch2);
+        dragView3.setOnTouchListener(this ::onTouch3);
+        dragView4.setOnTouchListener(this ::onTouch4);
+        dragView5.setOnTouchListener(this ::onTouch5);
 
         return view;
     }
@@ -94,28 +112,31 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
                 dX1 = v.getX() - event.getRawX();
                 dY1 = v.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+                Log.d(TAG, "onTouch: 1st view get" + " " + v.getX() + " " + v.getY());
+                Log.d(TAG, "onTouch: 1st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: 1st view DX" + " " + dX1+ " " +dY1);
+
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 v.setY(event.getRawY() + dY1);
                 v.setX(event.getRawX() + dX1);
                 lastAction = MotionEvent.ACTION_MOVE;
+                Log.d(TAG, "onTouch: ACTION_MOVE 1st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: ACTION_MOVE 1st view DX" + " " + dX1+ " " +dY1);
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
                     Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
-//                SharedPreferences preferences1 = this.getActivity().getSharedPreferences("pref1", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = preferences1.edit();
-//                float value11 = event.getRawX() + dX1;
-//                float value12 = event.getRawY() + dY1;
-                float value11 = v.getX();
-                float value12 = v.getY();
+//                float value11 = v.getX() + event.getRawX() ;
+//                float value12 = v.getY() + event.getRawY() ;
+                float value11 = event.getRawX() + dX1 ;
+                float value12 = event.getRawY() + dY1 ;
                 sharedPrefenceHelper.setViewx1(value11);
                 sharedPrefenceHelper.setViewy1(value12);
-//                editor.putFloat("key11", value11);
-//                editor.putFloat("key12", value12);
-//                editor.apply();
+                Log.d(TAG, "onTouch: 1st view" + value11 + " " + value12);
                 break;
 
             default:
@@ -132,28 +153,30 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
                 dX2 = v.getX() - event.getRawX();
                 dY2 = v.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+                Log.d(TAG, "onTouch: 2st view get" + " " + v.getX() + " " + v.getY());
+                Log.d(TAG, "onTouch: 2st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: 2st view DX" + " " + dX2+ " " +dY2);
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 v.setY(event.getRawY() + dY2);
                 v.setX(event.getRawX() + dX2);
                 lastAction = MotionEvent.ACTION_MOVE;
+                Log.d(TAG, "onTouch:ACTION_MOVE 2st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: ACTION_MOVE 2st view DX" + " " + dX2+ " " +dY2);
+
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
                     Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
-//                SharedPreferences preferences2 = this.getActivity().getSharedPreferences("pref2", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = preferences2.edit();
-//                float value21 = event.getRawX() + dX2;
-//                float value22 = event.getRawY() + dY2;
-                float value21 = v.getX();
-                float value22 = v.getY();
+//                float value21 = v.getX() + event.getRawX() ;
+//                float value22 = v.getY() + event.getRawY() ;
+                float value21 = dX2 + event.getRawX() ;
+                float value22 = dY2 + event.getRawY() ;
+                Log.d(TAG, "onTouch: 2st view" + value21+ " " + value22);
                 sharedPrefenceHelper.setViewx2(value21);
                 sharedPrefenceHelper.setViewy2(value22);
-//                editor.putFloat("key21", value21);
-//                editor.putFloat("key22", value22);
-//                editor.apply();
                 break;
 
             default:
@@ -170,28 +193,30 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
                 dX3 = v.getX() - event.getRawX();
                 dY3 = v.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+                Log.d(TAG, "onTouch: 3st view get" + " " + v.getX() + " " + v.getY());
+                Log.d(TAG, "onTouch: 3st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: 3st view DX" + " " + dX3+ " " +dY3);
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 v.setY(event.getRawY() + dY3);
                 v.setX(event.getRawX() + dX3);
                 lastAction = MotionEvent.ACTION_MOVE;
+                Log.d(TAG, "onTouch: ACTION_MOVE 3st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: ACTION_MOVE 3st view DX" + " " + dX3+ " " +dY3);
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
                     Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
-                SharedPreferences preferences3 = this.getActivity().getSharedPreferences("pref3", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences3.edit();
-//                float value31 = event.getRawX() + dX3;
-//                float value32 = event.getRawY() + dY3;
-                float value31 = v.getX();
-                float value32 = v.getY();
+//                float value31 = v.getX() + event.getRawX() ;
+//                float value32 = v.getY() + event.getRawY() ;
+                float value31 = dX3  + event.getRawX() ;
+                float value32 = dY3  + event.getRawY() ;
+                Log.d(TAG, "onTouch: 3st view" + value31 + " "+ value32);
+
                 sharedPrefenceHelper.setViewx3(value31);
                 sharedPrefenceHelper.setViewy3(value32);
-//                editor.putFloat("key31", value31);
-//                editor.putFloat("key32", value32);
-//                editor.apply();
                 break;
 
             default:
@@ -208,28 +233,30 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
                 dX4 = v.getX() - event.getRawX();
                 dY4 = v.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+                Log.d(TAG, "onTouch: 4st view get" + " " + v.getX() + " " + v.getY());
+                Log.d(TAG, "onTouch: 4st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch: 4st view DX" + " " + dX4+ " " +dY4);
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 v.setY(event.getRawY() + dY4);
                 v.setX(event.getRawX() + dX4);
                 lastAction = MotionEvent.ACTION_MOVE;
+                Log.d(TAG, "onTouch:ACTION_MOVE 4st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch:ACTION_MOVE 4st view DX" + " " + dX4+ " " +dY4);
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
                     Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
-                SharedPreferences preferences4 = this.getActivity().getSharedPreferences("pref4", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences4.edit();
-//                float value41 = event.getRawX() + dX4;
-//                float value42 = event.getRawY() + dY4;
-                float value41 = v.getX();
-                float value42 = v.getY();
+//                float value41 = v.getX() + event.getRawX() ;
+//                float value42 = v.getY() + event.getRawY() ;
+                float value41 = dX4 + event.getRawX() ;
+                float value42 = dY4 + event.getRawY() ;
                 sharedPrefenceHelper.setViewx4(value41);
                 sharedPrefenceHelper.setViewy4(value42);
-//                editor.putFloat("key41", value41);
-//                editor.putFloat("key42", value42);
-//                editor.apply();
+                Log.d(TAG, "onTouch: 4st view" + value41+ " " + value42);
+
                 break;
 
             default:
@@ -246,28 +273,30 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
                 dX5 = v.getX() - event.getRawX();
                 dY5 = v.getY() - event.getRawY();
                 lastAction = MotionEvent.ACTION_DOWN;
+                Log.d(TAG, "ACTION_DOWN: 5st view get" + " " + v.getX() + " " + v.getY());
+                Log.d(TAG, "ACTION_DOWN: 5st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "ACTION_DOWN: 5st view DX" + " " + dX5+ " " +dY5);
                 break;
 
             case MotionEvent.ACTION_MOVE:
                 v.setY(event.getRawY() + dY5);
                 v.setX(event.getRawX() + dX5);
                 lastAction = MotionEvent.ACTION_MOVE;
+                Log.d(TAG, "onTouch:ACTION_MOVE 5st view RAW" + " " + event.getRawX() + " " +event.getRawY());
+                Log.d(TAG, "onTouch:ACTION_MOVE 5st view DX" + " " + dX5+ " " +dY5);
                 break;
 
             case MotionEvent.ACTION_UP:
                 if (lastAction == MotionEvent.ACTION_DOWN)
                     Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
-                SharedPreferences preferences5 = this.getActivity().getSharedPreferences("pref5", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences5.edit();
-//                float value51 = event.getRawX() + dX5;
-//                float value52 = event.getRawY() + dY5;
-                float value51 = v.getX();
-                float value52 = v.getY();
+//                float value51 = v.getX() + event.getRawX() ;
+//                float value52 = v.getY() + event.getRawY() ;
+                float value51 = dX5 + event.getRawX() ;
+                float value52 = dY5 + event.getRawY() ;
                 sharedPrefenceHelper.setViewx5(value51);
                 sharedPrefenceHelper.setViewy5(value52);
-//                editor.putFloat("key51", value51);
-//                editor.putFloat("key52", value52);
-//                editor.apply();
+                Log.d(TAG, "onTouch: 5st view" + value51+ " " + value52);
+
                 break;
 
             default:

@@ -27,15 +27,6 @@ public class SharedPrefenceHelper {
         sharedPreferences = context.getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE);
 
     }
-//    public void setLoggedIN(boolean value){
-//        editor  = sharedPreferences.edit();
-//        editor.putBoolean(IS_LOGGED_IN,value);
-//        editor.apply();
-//    }
-//    public boolean getLoggedIN(){
-//        return sharedPreferences.getBoolean(IS_LOGGED_IN,false);
-//
-//    }
 
     public void setViewx1(float x1){
         editor  = sharedPreferences.edit();
