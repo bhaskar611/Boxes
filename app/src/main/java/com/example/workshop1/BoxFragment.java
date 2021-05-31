@@ -49,25 +49,25 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
         Log.d(TAG, "onTouch: 1st view coordinates sharedprefs" + x1 + " " + y1);
 
 
-        float x2 = sharedPrefenceHelper.getViewx2();
+        float x2 = sharedPrefenceHelper.getViewx2()-1089;
         float y2 = sharedPrefenceHelper.getViewy2();
 
         Log.d(TAG, "onTouch: 2st view coordinates sharedprefs" + x2  + " " +y2);
 
 
         float x3 = sharedPrefenceHelper.getViewx3();
-        float y3 = sharedPrefenceHelper.getViewy3();
+        float y3 = sharedPrefenceHelper.getViewy3()-129;
 
         Log.d(TAG, "onTouch: 3st view coordinates sharedprefs" + x3+ " " +y3);
 
 
-        float x4 = sharedPrefenceHelper.getViewx4();
-        float y4 = sharedPrefenceHelper.getViewy4();
+        float x4 = sharedPrefenceHelper.getViewx4()-659;
+        float y4 = sharedPrefenceHelper.getViewy4()-152;
 
         Log.d(TAG, "onTouch: 4st view coordinates sharedprefs" + x4+ " " +y4);
 
 
-        float x5 =sharedPrefenceHelper.getViewx5();
+        float x5 =sharedPrefenceHelper.getViewx5() - 438;
         float y5 = sharedPrefenceHelper.getViewy5();
 
         Log.d(TAG, "onTouch: 5st view coordinates sharedprefs" + x5+ " " +y5);
@@ -92,8 +92,8 @@ public class BoxFragment extends Fragment implements View.OnTouchListener {
         dragView3.setY(y3);
         dragView4.setX(x4);
         dragView4.setY(y4);
-        dragView5.setX(x5/2);
-        dragView5.setY(y5/2);
+        dragView5.setX(x5);
+        dragView5.setY(y5);
 
         dragView1.setOnTouchListener(this);
         dragView2.setOnTouchListener(this ::onTouch2);
